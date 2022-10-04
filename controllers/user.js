@@ -14,8 +14,9 @@ module.exports = {
   
       // create a token
       const token = createToken(user._id)
+      const Teacher = user.teacher
   
-      res.status(200).json({email, token})
+      res.status(200).json({email, Teacher, token})
     } catch (error) {
       res.status(400).json({error: error.message})
     }
@@ -30,7 +31,7 @@ module.exports = {
       // create a token
       const token = createToken(user._id)
   
-      res.status(200).json({email, token})
+      res.status(200).json({email, teacher, token})
     } catch (error) {
       res.status(400).json({error: error.message})
     }
