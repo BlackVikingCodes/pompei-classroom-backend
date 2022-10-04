@@ -15,23 +15,27 @@ module.exports = {
       // create a token
       const token = createToken(user._id)
       const Teacher = user.teacher
-  
-      res.status(200).json({email, Teacher, token})
+      const Grade = user.grade
+
+
+      res.status(200).json({email, Teacher, Grade, token})
+      
     } catch (error) {
       res.status(400).json({error: error.message})
     }
   },
 
   signupUser: async (req, res) => {
-    const {email, password, teacher} = req.body
+    const {email, password, teacher, grade} = req.body
   
     try {
       const user = await User.signup(email, password, teacher)
   
       // create a token
       const token = createToken(user._id)
+
+      res.status(200).json({email, teacher, grade, token})
   
-      res.status(200).json({email, teacher, token})
     } catch (error) {
       res.status(400).json({error: error.message})
     }

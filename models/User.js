@@ -17,11 +17,15 @@ const userSchema = new Schema({
   teacher: {
     type: Boolean,
     required: true
+  },
+  grade: {
+    type: Number,
+    default: 0
   }
 })
 
 // static signup method
-userSchema.statics.signup = async function(email, password, teacher) {
+userSchema.statics.signup = async function(email, password, teacher, grade) {
 
   // validation
   if (!email || !password) {
@@ -43,7 +47,7 @@ userSchema.statics.signup = async function(email, password, teacher) {
   const salt = await bcrypt.genSalt(10)
   const hash = await bcrypt.hash(password, salt)
 
-  const user = await this.create({ email, password: hash, teacher })
+  const user = await this.create({ email, password: hash, teacher, grade })
 
   return user
 }
