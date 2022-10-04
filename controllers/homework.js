@@ -3,9 +3,8 @@ const mongoose = require('mongoose')
 
 module.exports = {
   getHomeworks: async (req, res) => {
-    const grade = req.body.grade
   
-    const homeworks = await Homework.find({grade}).sort({createdAt: -1})
+    const homeworks = await Homework.find({}).sort({createdAt: -1})
   
     res.status(200).json(homeworks)
   },
