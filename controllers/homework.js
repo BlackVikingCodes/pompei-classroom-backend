@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 module.exports = {
   getHomeworks: async (req, res) => {
   
-    const homeworks = await Homework.find({}).sort({createdAt: -1})
+    const homeworks = await Homework.find({}).sort({createdAt: -1, grade: -1})
   
     res.status(200).json(homeworks)
   },
@@ -26,11 +26,11 @@ module.exports = {
   },
 
   createHomework: async (req, res) => {
-    const {title, content, grade, teacher} = req.body
+    const {title, content, grade} = req.body
   
-    let emptyFields = []
+    /* let emptyFields = [] */
   
-    if(!title) {
+   /*  if(!title) {
       emptyFields.push('title')
     }
     if(!content) {
@@ -38,21 +38,23 @@ module.exports = {
     }
     if(!grade) {
       emptyFields.push('grade')
-    }
-    if(!teacher) {
+    } */
+    /* if(!teacher) {
       emptyFields.push('teacher')
     }
     if(emptyFields.includes('teacher')) {
       return res.status(400).json({ error: 'Only teachers can create homeworks'})
-    }
-    if(emptyFields.length > 0) {
+    } */
+/*     if(emptyFields.length > 0) {
       return res.status(400).json({ error: 'Please fill in all the fields', emptyFields })
-    }
+    } */
   
     // add doc to db
     try {
       const user_id = req.user._id
-      const homework = await Homework.create({title, content, grade, teacher, user_id})
+      /* const isTeacher = req.user.teacher */
+      let Teacher = req.body.teacher
+      const homework = await Homework.create({title, content, grade, teacher:Teacher, user_id})
       console.log(req.user)
       res.status(200).json(homework)
     } catch (error) {

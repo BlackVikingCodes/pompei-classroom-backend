@@ -16,9 +16,10 @@ module.exports = {
       const token = createToken(user._id)
       const Teacher = user.teacher
       const Grade = user.grade
+      const userId = user._id
 
 
-      res.status(200).json({email, Teacher, Grade, token})
+      res.status(200).json({email, Teacher, Grade, userId, token})
       
     } catch (error) {
       res.status(400).json({error: error.message})
@@ -29,12 +30,13 @@ module.exports = {
     const {email, password, teacher, grade} = req.body
   
     try {
-      const user = await User.signup(email, password, teacher)
+      const user = await User.signup(email, password, teacher, grade)
   
       // create a token
       const token = createToken(user._id)
+      const userId = user._id
 
-      res.status(200).json({email, teacher, grade, token})
+      res.status(200).json({email, teacher, grade, userId, token})
   
     } catch (error) {
       res.status(400).json({error: error.message})

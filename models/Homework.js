@@ -5,15 +5,12 @@ const Schema = mongoose.Schema
 const homeworkSchema = new Schema({
   title: {
     type: String,
-    required: true
   },
   content: {
     type: String,
-    required: true
   },
   grade: {
     type: Number,
-    required: true
   },
   teacher: {
     type: Boolean, 
